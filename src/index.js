@@ -72,7 +72,6 @@ const main = () => {
   displayFirstRamen();
 }
 
-main()
 
 // Export functions for testing
 export {
