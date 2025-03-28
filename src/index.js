@@ -72,7 +72,7 @@ const main = () => {
   displayFirstRamen();
 }
 
-document.addEventListener('DOMContentLoaded', main);
+main()
 
 // Export functions for testing
 export {
