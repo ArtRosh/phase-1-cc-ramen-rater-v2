@@ -2,7 +2,6 @@
 
 // Callbacks
 const handleClick = (ramen) => {
-  // Add code
   document.querySelector('.detail-image').src = ramen.image;
   document.querySelector('.name').textContent = ramen.name;
   document.querySelector('.restaurant').textContent = ramen.restaurant;
@@ -12,7 +11,7 @@ const handleClick = (ramen) => {
 
 const addSubmitListener = () => {
   const form = document.querySelector('#new-ramen');
-  if (!form) return; // Prevents crashing in test environment
+  if (!form) return;
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -38,21 +37,27 @@ const addSubmitListener = () => {
 };
 
 const displayRamens = () => {
+  console.log("displayRamens called"); // Check if the function is invoked
+
   fetch('http://localhost:3000/ramens')
     .then(res => res.json())
     .then(data => {
+      console.log("Fetched ramen data:", data); // Confirm data was received
+
       const menu = document.querySelector('#ramen-menu');
-      if (!menu) return; // ← This prevents test errors
+      if (!menu) return; // Prevent errors if the element is not found
 
       data.forEach(ramen => {
         const img = document.createElement('img');
         img.src = ramen.image;
-        img.addEventListener('click', () => handleClick(ramen));
-        menu.appendChild(img);
+        img.addEventListener('click', () => handleClick(ramen)); // Add click to show details
+        menu.appendChild(img); // Add the image to the menu
       });
+    })
+    .catch(error => {
+      console.error("Fetch error:", error); // Show fetch error in console
     });
 };
-
 
 const displayFirstRamen = () => {
   fetch('http://localhost:3000/ramens')
@@ -65,13 +70,12 @@ const displayFirstRamen = () => {
 };
 
 const main = () => {
-  // Invoke displayRamens here
-  // Invoke addSubmitListener here
   displayRamens();
   addSubmitListener();
   displayFirstRamen();
-}
+};
 
+document.addEventListener('DOMContentLoaded', main);
 
 // Export functions for testing
 export {
